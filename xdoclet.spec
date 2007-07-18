@@ -10,7 +10,7 @@
 
 Name:           xdoclet
 Version:        1.2.3
-Release:        %mkrel 4
+Release:        %mkrel 5
 Epoch:          0
 Summary:        XDoclet Attribute Orientated Programming Framework
 License:        BSD-style
@@ -48,7 +48,7 @@ BuildRequires:  mockobjects
 BuildRequires:  struts 
 BuildRequires:  velocity 
 BuildRequires:  xalan-j2
-BuildRequires:  xml-commons-apis 
+BuildRequires:  xml-commons-jaxp-1.3-apis 
 BuildRequires:  xjavadoc = 0:1.1
 BuildRequires:  ant-trax
 Requires:       bsf
@@ -58,7 +58,7 @@ Requires:       log4j
 Requires:       mockobjects
 Requires:       velocity
 Requires:       xalan-j2
-Requires:       xml-commons-apis
+Requires:       xml-commons-jaxp-1.3-apis
 Requires:       xjavadoc = 0:1.1
 
 %description
@@ -112,7 +112,7 @@ mv objectweb objectweb.orig
 tar xjf %{SOURCE1}
 popd
 
-for j in xjavadoc-1.1 jrefactory javacc junit bsf commons-collections commons-logging log4j velocity xalan-j2 xalan-j2-serializer xjavadoc xml-commons-apis mockobjects-core; do
+for j in xjavadoc-1.1 jrefactory javacc junit bsf commons-collections commons-logging log4j velocity xalan-j2 xalan-j2-serializer xjavadoc xml-commons-jaxp-1.3-apis mockobjects-core; do
         ln -s $(build-classpath $j) lib/$j.jar
 done
 

@@ -10,7 +10,7 @@
 
 Name:           xdoclet
 Version:        1.2.3
-Release:        %mkrel 5
+Release:        %mkrel 6
 Epoch:          0
 Summary:        XDoclet Attribute Orientated Programming Framework
 License:        BSD-style

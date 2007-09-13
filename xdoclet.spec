@@ -177,7 +177,7 @@ done
 %patch6 -b .sav
 
 %build
-export OPT_JAR_LIST="ant/ant-nodeps jrefactory jaxp_transform_impl ant/ant-trax"
+export OPT_JAR_LIST="ant/ant-nodeps jrefactory jaxp_transform_impl ant/ant-trax xalan-j2 xalan-j2-serializer"
 %{ant} xjavadoc core modules docs l10n
 
 %if %{with_demo}

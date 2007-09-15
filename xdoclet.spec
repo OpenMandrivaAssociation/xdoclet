@@ -43,7 +43,7 @@
 
 Name:		xdoclet
 Version:	1.2.3
-Release:	%mkrel 7.3.1
+Release:	%mkrel 7.3.2
 Epoch:		0
 Summary:	XDoclet Attribute Orientated Programming Framework
 License:	XDoclet Open Source Licence
@@ -93,8 +93,6 @@ Requires:  xjavadoc = 0:1.1
 
 %if %{gcj_support}
 BuildRequires:		java-gcj-compat-devel
-Requires(post):		java-gcj-compat
-Requires(postun):	java-gcj-compat
 %endif
 
 %description

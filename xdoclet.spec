@@ -43,7 +43,7 @@
 
 Name:		xdoclet
 Version:	1.2.3
-Release:	%mkrel 7.3.2
+Release:	%mkrel 7.3.3
 Epoch:		0
 Summary:	XDoclet Attribute Orientated Programming Framework
 License:	XDoclet Open Source Licence
@@ -64,7 +64,7 @@ BuildArch:	noarch
 %endif
 BuildRoot: 	%{_tmppath}/%{name}-root
 BuildRequires:  java-devel >= 0:1.4.2
-BuildRequires:  jpackage-utils >= 0:1.6
+BuildRequires:  java-rpmbuild >= 0:1.6
 BuildRequires:  ant >= 0:1.6
 BuildRequires:  ant-nodeps >= 0:1.5
 BuildRequires:	ant-trax

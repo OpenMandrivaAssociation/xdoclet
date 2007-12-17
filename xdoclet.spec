@@ -62,7 +62,6 @@ Patch6:		xdoclet-build_docs_xml.patch
 %if ! %{gcj_support}
 BuildArch:	noarch
 %endif
-BuildRoot: 	%{_tmppath}/%{name}-root
 BuildRequires:  java-devel >= 0:1.4.2
 BuildRequires:  java-rpmbuild >= 0:1.6
 BuildRequires:  ant >= 0:1.6

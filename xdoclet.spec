@@ -28,9 +28,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-%define _with_gcj_support 1
-
-%define gcj_support %{?_with_gcj_support:1}%{!?_with_gcj_support:%{?_without_gcj_support:0}%{!?_without_gcj_support:%{?_gcj_support:%{_gcj_support}}%{!?_gcj_support:0}}}
+%define gcj_support 0
 
 %define section free
 
@@ -43,7 +41,7 @@
 
 Name:		xdoclet
 Version:	1.2.3
-Release:	%mkrel 8
+Release:	%mkrel 8.0.1
 Epoch:		0
 Summary:	XDoclet Attribute Orientated Programming Framework
 License:	XDoclet Open Source Licence
@@ -194,7 +192,7 @@ cp -pr samples/* $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
 %endif
 
 mkdir -p $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-cp -pr target/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+cp -pr target/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 rm -rf target/docs/api
 
 mkdir -p $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
@@ -202,36 +200,27 @@ cp -p LICENSE.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 cp -pr target/docs/* $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-%if %{gcj_support}
-%{_bindir}/aot-compile-rpm
-%endif
+%{gcj_compile}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
 %if %{gcj_support}
-if [ -x %{_bindir}/rebuild-gcj-db ]
-then
-  %{_bindir}/rebuild-gcj-db
-fi
+%{update_gcjdb}
 %endif
 
 %postun
 %if %{gcj_support}
-if [ -x %{_bindir}/rebuild-gcj-db ]
-then
-  %{_bindir}/rebuild-gcj-db
-fi
+%{clean_gcjdb}
 %endif
 
 %files
 %defattr(0644,root, root,0755)
 %{_javadir}/%{name}
+%if %{gcj_support}
 %dir %{_libdir}/gcj/%{name}
 #%doc %{_docdir}/%{name}-%{version}/LICENSE.txt
-
-%if %{gcj_support}
 %attr(-,root,root) %{_libdir}/gcj/%{name}/xdoclet-1.2.3.jar.*
 %attr(-,root,root) %{_libdir}/gcj/%{name}/xdoclet-apache-module-1.2.3.jar.*
 %attr(-,root,root) %{_libdir}/gcj/%{name}/xdoclet-bea-module-1.2.3.jar.*

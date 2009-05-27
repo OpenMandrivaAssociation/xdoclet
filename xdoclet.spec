@@ -41,7 +41,7 @@
 
 Name:		xdoclet
 Version:	1.2.3
-Release:	%mkrel 8.0.1
+Release:	%mkrel 8.0.2
 Epoch:		0
 Summary:	XDoclet Attribute Orientated Programming Framework
 License:	XDoclet Open Source Licence
@@ -166,7 +166,7 @@ done
 
 %patch0 -b .sav
 %patch1 -b .sav
-%patch2
+%patch2  
 %patch3 -b .sav
 %patch4 -b .sav
 %patch5 -b .sav

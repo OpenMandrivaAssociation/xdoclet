@@ -181,29 +181,29 @@ export OPT_JAR_LIST="ant/ant-nodeps jrefactory jaxp_transform_impl ant/ant-trax 
 %endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{_javadir}/%{name}
-install -m 644 target/lib/xdoclet*.jar $RPM_BUILD_ROOT%{_javadir}/%{name}
-(cd $RPM_BUILD_ROOT%{_javadir}/%{name} && for jar in *-%{version}.jar; do ln -sf ${jar} `echo $jar| sed "s|-%{version}||g"`; done)
+rm -rf %{buildroot}
+mkdir -p %{buildroot}%{_javadir}/%{name}
+install -m 644 target/lib/xdoclet*.jar %{buildroot}%{_javadir}/%{name}
+(cd %{buildroot}%{_javadir}/%{name} && for jar in *-%{version}.jar; do ln -sf ${jar} `echo $jar| sed "s|-%{version}||g"`; done)
 
 %if %{with_demo}
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
-cp -pr samples/* $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
+mkdir -p %{buildroot}%{_datadir}/%{name}-%{version}
+cp -pr samples/* %{buildroot}%{_datadir}/%{name}-%{version}
 %endif
 
-mkdir -p $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-cp -pr target/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+mkdir -p %{buildroot}%{_javadocdir}/%{name}-%{version}
+cp -pr target/docs/api %{buildroot}%{_javadocdir}/%{name}-%{version}
 rm -rf target/docs/api
 
-mkdir -p $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
-cp -p LICENSE.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
-cp -pr target/docs/* $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
-ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
+cp -p LICENSE.txt %{buildroot}%{_docdir}/%{name}-%{version}
+cp -pr target/docs/* %{buildroot}%{_docdir}/%{name}-%{version}
+ln -s %{name}-%{version} %{buildroot}%{_javadocdir}/%{name}
 
 %{gcj_compile}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %post
 %if %{gcj_support}

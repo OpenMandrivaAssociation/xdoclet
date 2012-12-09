@@ -41,7 +41,7 @@
 
 Name:		xdoclet
 Version:	1.2.3
-Release:	%mkrel 8.0.6
+Release:	%mkrel 8.0.5
 Epoch:		0
 Summary:	XDoclet Attribute Orientated Programming Framework
 License:	XDoclet Open Source Licence
@@ -164,13 +164,13 @@ for j in mx4j/mx4j-jmx mx4j/mx4j-tools; do
 done
 %endif
 
-%patch0 -b .sav
-%patch1 -b .sav
-%patch2  
-%patch3 -b .sav
-%patch4 -b .sav
-%patch5 -b .sav
-%patch6 -b .sav
+%patch0 -p0 -b .sav
+%patch1 -p0 -b .sav
+%patch2 -p0 
+%patch3 -p0 -b .sav
+%patch4 -p0 -b .sav
+%patch5 -p0 -b .sav
+%patch6 -p0 -b .sav
 
 %build
 export OPT_JAR_LIST="ant/ant-nodeps jrefactory jaxp_transform_impl ant/ant-trax xalan-j2 xalan-j2-serializer"
@@ -181,29 +181,29 @@ export OPT_JAR_LIST="ant/ant-nodeps jrefactory jaxp_transform_impl ant/ant-trax 
 %endif
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}%{_javadir}/%{name}
-install -m 644 target/lib/xdoclet*.jar %{buildroot}%{_javadir}/%{name}
-(cd %{buildroot}%{_javadir}/%{name} && for jar in *-%{version}.jar; do ln -sf ${jar} `echo $jar| sed "s|-%{version}||g"`; done)
+rm -rf $RPM_BUILD_ROOT
+mkdir -p $RPM_BUILD_ROOT%{_javadir}/%{name}
+install -m 644 target/lib/xdoclet*.jar $RPM_BUILD_ROOT%{_javadir}/%{name}
+(cd $RPM_BUILD_ROOT%{_javadir}/%{name} && for jar in *-%{version}.jar; do ln -sf ${jar} `echo $jar| sed "s|-%{version}||g"`; done)
 
 %if %{with_demo}
-mkdir -p %{buildroot}%{_datadir}/%{name}-%{version}
-cp -pr samples/* %{buildroot}%{_datadir}/%{name}-%{version}
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
+cp -pr samples/* $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
 %endif
 
-mkdir -p %{buildroot}%{_javadocdir}/%{name}-%{version}
-cp -pr target/docs/api %{buildroot}%{_javadocdir}/%{name}-%{version}
+mkdir -p $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+cp -pr target/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 rm -rf target/docs/api
 
-mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
-cp -p LICENSE.txt %{buildroot}%{_docdir}/%{name}-%{version}
-cp -pr target/docs/* %{buildroot}%{_docdir}/%{name}-%{version}
-ln -s %{name}-%{version} %{buildroot}%{_javadocdir}/%{name}
+mkdir -p $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+cp -p LICENSE.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+cp -pr target/docs/* $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 %{gcj_compile}
 
 %clean
-rm -rf %{buildroot}
+rm -rf $RPM_BUILD_ROOT
 
 %post
 %if %{gcj_support}
@@ -271,3 +271,129 @@ rm -rf %{buildroot}
 %files manual
 %defattr(-, root, root, -)
 %doc %{_docdir}/%{name}-%{version}
+
+
+%changelog
+* Sat Dec 04 2010 Oden Eriksson <oeriksson@mandriva.com> 0:1.2.3-8.0.5mdv2011.0
++ Revision: 608200
+- rebuild
+
+* Wed Mar 17 2010 Oden Eriksson <oeriksson@mandriva.com> 0:1.2.3-8.0.4mdv2010.1
++ Revision: 524430
+- rebuilt for 2010.1
+
+* Tue Sep 01 2009 Christophe Fergeau <cfergeau@mandriva.com> 0:1.2.3-8.0.3mdv2010.0
++ Revision: 423785
+- rebuild
+
+  + Nicolas Lécureuil <nlecureuil@mandriva.com>
+    - Rediff patch
+
+* Mon Jul 28 2008 Alexander Kurtakov <akurtakov@mandriva.org> 0:1.2.3-8.0.1mdv2009.0
++ Revision: 251702
+- fix build
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+    - kill re-definition of %%buildroot on Pixel's request
+
+  + Oden Eriksson <oeriksson@mandriva.com>
+    - rebuild
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+  + Anssi Hannula <anssi@mandriva.org>
+    - buildrequire java-rpmbuild, i.e. build with icedtea on x86(_64)
+
+* Sat Sep 15 2007 Anssi Hannula <anssi@mandriva.org> 7.3.2mdv2008.0-current
++ Revision: 87268
+- rebuild to filter out autorequires of GCJ AOT objects
+- remove unnecessary Requires(post) on java-gcj-compat
+
+* Thu Sep 13 2007 David Walluck <walluck@mandriva.org> 0:1.2.3-7.3.1mdv2008.0
++ Revision: 84895
+- add xalan-j2 xalan-j2-serializer to OPT_JAR_LIST
+- sync with fc to remove mockobjects dep
+
+* Thu Jul 26 2007 Anssi Hannula <anssi@mandriva.org> 0:1.2.3-6mdv2008.0
++ Revision: 55961
+- use xml-commons-jaxp-1.3-apis explicitely instead of the generic
+  xml-commons-apis which is provided by multiple packages (see bug #31473)
+
+
+* Sat Dec 16 2006 David Walluck <walluck@mandriva.org> 1.2.3-4mdv2007.0
++ Revision: 98108
+- rebuild
+- rebuild
+- Import xdoclet
+
+* Thu Aug 17 2006 David Walluck <walluck@mandriva.org> 0:1.2.3-3mdv2007.0
+- add xalan-j2-serializer to CLASSPATH
+- fix macro in changelog
+
+* Sun Jun 04 2006 David Walluck <walluck@mandriva.org> 0:1.2.3-2mdv2007.0
+- rebuild for libgcj.so.7
+
+* Wed Nov 02 2005 David Walluck <walluck@mandriva.org> 0:1.2.2-2.2mdk
+- BuildRequires: ant-nodeps, ant-trax
+
+* Sun Sep 11 2005 David Walluck <walluck@mandriva.org> 0:1.2.2-2.1mdk
+- release
+
+* Thu Jun 16 2005 Gary Benson <gbenson@redhat.com> - 0:1.2.2-2jpp_1fc
+- Add missing javadoc %%ghost symlink.
+- Build into Fedora.
+
+* Fri Jun 10 2005 Gary Benson <gbenson@redhat.com>
+- Remove jarfiles and classfiles from the tarball.
+
+* Wed Jun 08 2005 Gary Benson <gbenson@redhat.com>
+- Don't build maven stuff.
+- Add missing dependency on ant-trax.
+
+* Thu May 05 2005 Fernando Nasser <fnasser@redhat.com> - 0:1.2.2-2jpp_1rh
+- Equivalent to 2jpp upstream
+
+* Fri Apr 29 2005 Fernando Nasser <fnasser@redhat.com> - 0:1.2.2-1jpp_7rh
+- Rebuild with the docs as maven is now available
+- Fix patch to correct xjavadoc building logic
+- Don't try and build twice
+
+* Fri Feb 25 2005 Fernando Nasser <fnasser@redhat.com> - 0:1.2.2-1jpp_4rh
+- Remove extra file from objectweb module
+
+* Fri Feb 25 2005 Fernando Nasser <fnasser@redhat.com> - 0:1.2.2-1jpp_3rh
+- Do not save copies of the java files when patching.
+
+* Thu Feb 24 2005 Fernando Nasser <fnasser@redhat.com> - 0:1.2.2-1jpp_2rh
+- Replace JOnAS specific tasks with code blessed by ObjectWeb
+
+* Wed Feb 16 2005 Fernando Nasser <fnasser@redhat.com> - 0:1.2.2-1jpp_1rh
+- Merge with upstream for upgrade
+- Add patch to prevent attempt to load DTD from the net, when it comes with
+  the source and is locally available
+- Temporarely disable documentation and mave plugin building for lack of maven
+
+* Tue Feb 15 2005 Ralph Apel <r.apel at r-apel.de> - 0:1.2.2-1jpp
+- Upgrade to 1.2.2
+- Add jsf requirement for demo
+- Drop jndi requirement for demo
+- Drop servletapi and mx4j requirement for main package
+- Buildrequire maven and use it to build docs
+
+* Fri Oct 15 2004 Fernando Nasser <fnasser@redhat.com> - 0:1.2.1-2jpp_1rh
+* First Red Hat build
+
+* Fri Aug 27 2004 Ralph Apel <r.apel at r-apel.de> - 0:1.2.1-2jpp
+- Build with ant-1.6.2
+
+* Sat Jul 03 2004 Ralph Apel <r.apel at r-apel.de> - 0:1.2.1-1jpp
+- Upgrade to 1.2.1
+- Relax build-time dependencies
+- Relax dependency versions
+- Make subpackage xdoclet-demo optional
+
+* Fri Mar 05 2004 Ralph Apel <r.apel at r-apel.de> - 0:1.2-1jpp
+- First JPackage release.
+

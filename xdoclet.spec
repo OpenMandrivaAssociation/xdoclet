@@ -41,7 +41,7 @@
 
 Name:		xdoclet
 Version:	1.2.3
-Release:	%mkrel 8.0.5
+Release:	8.0.6
 Epoch:		0
 Summary:	XDoclet Attribute Orientated Programming Framework
 License:	XDoclet Open Source Licence
@@ -204,16 +204,6 @@ ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post
-%if %{gcj_support}
-%{update_gcjdb}
-%endif
-
-%postun
-%if %{gcj_support}
-%{clean_gcjdb}
-%endif
 
 %files
 %defattr(0644,root, root,0755)

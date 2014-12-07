@@ -60,9 +60,7 @@ Patch6:		xdoclet-build_docs_xml.patch
 %if ! %{gcj_support}
 BuildArch:	noarch
 %endif
-BuildRoot: 	%{_tmppath}/%{name}-root
 BuildRequires:  java-devel >= 0:1.4.2
-BuildRequires:  java-rpmbuild >= 0:1.6
 BuildRequires:  ant >= 0:1.6
 BuildRequires:  ant-nodeps >= 0:1.5
 BuildRequires:	ant-trax
@@ -94,7 +92,7 @@ BuildRequires:		java-gcj-compat-devel
 %endif
 
 %description
-This package contains the XDoclet Attribute Orientated Programming Framework
+This package contains the XDoclet Attribute Orientated Programming Framework.
 
 %if %{with_demo}
 %package demo

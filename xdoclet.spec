@@ -41,7 +41,7 @@
 
 Name:		xdoclet
 Version:	1.2.3
-Release:	8.0.12
+Release:	8.0.13
 Epoch:		0
 Summary:	XDoclet Attribute Orientated Programming Framework
 License:	XDoclet Open Source Licence
